@@ -1,0 +1,35 @@
+[package]
+name = "state-transition-verifier"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lazy_static = "1.4.0"
+stylus-sdk = "0.4.1"
+wee_alloc = "0.4.5"
+getrandom = { version = "0.2.3", features = ["js"] }
+substrate-bn = {git="https://github.com/ivanlele/bn128", tag = "v0.1.0"}
+
+[dev-dependencies]
+tokio = { version = "1.12.0", features = ["full"] }
+ethers = "2.0"
+eyre = "0.6.8"
+
+[features]
+export-abi = ["stylus-sdk/export-abi"]
+
+[[bin]]
+name = "state-transition-verifier"
+path = "src/main.rs"
+
+[profile.release]
+codegen-units = 1
+strip = true
+lto = true
+panic = "abort"
+opt-level = "z"
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+[workspace]
